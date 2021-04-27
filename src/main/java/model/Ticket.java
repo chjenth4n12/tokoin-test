@@ -10,46 +10,44 @@ import lombok.*;
 @ToString
 public class Ticket {
 
-    private static final long serialVersionUID = 1L;
+	@JsonAlias("_id")
+	private String id;
 
-    @JsonAlias("_id")
-    private String id;
+	private String url;
 
-    private String url;
+	@JsonAlias("external_id")
+	private String externalId;
 
-    @JsonAlias("external_id")
-    private String externalId;
+	@JsonAlias("created_at")
+	private String createdAt;
 
-    @JsonAlias("created_at")
-    private String createdAt;
+	private String type;
 
-    private String type;
+	private String subject;
 
-    private String subject;
+	private String description;
 
-    private String description;
+	private String priority;
 
-    private String priority;
+	private String status;
 
-    private String status;
+	@JsonAlias("submitter_id")
+	private Integer submitterId;
 
-    @JsonAlias("submitter_id")
-    private Integer submitterId;
+	@JsonAlias("assignee_id")
+	private Integer assigneeId;
 
-    @JsonAlias("assignee_id")
-    private Integer assigneeId;
+	@JsonAlias("organization_id")
+	private Integer organizationId;
 
-    @JsonAlias("organization_id")
-    private Integer organizationId;
+	private String[] tags;
 
-    private String[] tags;
+	@JsonAlias("has_incidents")
+	private Boolean hasIncidents;
 
-    @JsonAlias("has_incidents")
-    private Boolean hasIncidents;
+	@JsonAlias("due_at")
+	private String dueAt;
 
-    @JsonAlias("due_at")
-    private String dueAt;
-
-    private String via;
+	private String via;
 
 }

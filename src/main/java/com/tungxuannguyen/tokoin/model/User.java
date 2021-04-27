@@ -10,6 +10,8 @@ import lombok.*;
 @ToString
 public class User {
 
+    private static final long serialVersionUID = 1L;
+
     @JsonAlias("_id")
     private Integer id;
 

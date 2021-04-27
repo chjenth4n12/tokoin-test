@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import com.tungxuannguyen.tokoin.repository.UtilsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,6 @@ import com.tungxuannguyen.tokoin.model.User;
 import com.tungxuannguyen.tokoin.service.OrganizationService;
 import com.tungxuannguyen.tokoin.service.TicketService;
 import com.tungxuannguyen.tokoin.service.UserService;
-import com.tungxuannguyen.tokoin.utils.UtilsRepository;
 
 @SpringBootApplication
 public class Tokoin implements CommandLineRunner {
@@ -35,10 +35,6 @@ public class Tokoin implements CommandLineRunner {
 	
 	@Autowired
 	private OrganizationService organizationService;
-
-	private static final String PATH_USER_FILE = "/json/users.json";
-	private static final String PATH_TICKET_FILE = "/json/tickets.json";
-	private static final String PATH_ORGANIZATION_FILE = "/json/organizations.json";
 
 	private static final String INTRODUCTION_MSG = "Type 'quit' to exit at any time. Press 'Enter' to continue" + "\n"
 			+ "\tSelect search options:\n" + " \t* Press 1 to search\n"
@@ -69,9 +65,9 @@ public class Tokoin implements CommandLineRunner {
 
 	public void run(String... args) throws Exception {
 		// get data from file
-		organizations = utilsRepository.readJson(PATH_ORGANIZATION_FILE, Organization.class);
-		users = utilsRepository.readJson(PATH_USER_FILE, User.class);
-		tickets = utilsRepository.readJson(PATH_TICKET_FILE, Ticket.class);
+		organizations = utilsRepository.readJsonOrganizationFile();
+		users = utilsRepository.readJsonUserFile();
+		tickets = utilsRepository.readJsonTicketFile();
 
 		// start program
 		this.program();

@@ -10,6 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class Organization {
 
+	private static final long serialVersionUID = 1L;
+
 	@JsonAlias("_id")
 	private Integer id;
 

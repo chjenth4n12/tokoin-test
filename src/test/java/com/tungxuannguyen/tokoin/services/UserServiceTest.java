@@ -1,4 +1,4 @@
-package com.example.joseph.tokoin.services;
+package com.tungxuannguyen.tokoin.services;
 
 import com.tungxuannguyen.tokoin.Tokoin;
 import com.tungxuannguyen.tokoin.entity.UserResponse;

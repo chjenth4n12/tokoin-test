@@ -10,6 +10,8 @@ import lombok.*;
 @ToString
 public class Ticket {
 
+	private static final long serialVersionUID = 1L;
+
 	@JsonAlias("_id")
 	private String id;
 

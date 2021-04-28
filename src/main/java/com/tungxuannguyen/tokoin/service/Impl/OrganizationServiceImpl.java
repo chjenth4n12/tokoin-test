@@ -25,10 +25,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 				.map(organization -> new OrganizationResponse(organization)).findFirst()
 				.orElseThrow(() -> new NoSuchElementException());
 		organizationResponse.setTicketSubjects(
-				ticketRepo.stream().filter(t -> t.getOrganizationId().equals(organizationResponse.getId()))
+				ticketRepo.stream().filter(t -> t.getOrganizationId() == organizationResponse.getId())
 						.map(t -> t.getSubject()).toArray(String[]::new));
 		organizationResponse
-				.setUsernames(userRepo.stream().filter(u -> u.getOrganizationId().equals(organizationResponse.getId()))
+				.setUsernames(userRepo.stream().filter(u -> u.getOrganizationId() == organizationResponse.getId())
 						.map(u -> u.getName()).toArray(String[]::new));
 		return organizationResponse;
 	}

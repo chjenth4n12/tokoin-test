@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService {
 			Integer id) {
 		UserResponse user = userRepo.stream().filter(item -> item.getId().equals(id)).map(item -> new UserResponse(item))
 				.findFirst().orElseThrow(() -> new NoSuchElementException());
-		user.setAssigneeTicketSubjects(ticketRepo.stream().filter(t -> t.getId().equals(user.getExternalId()))
+		user.setAssigneeTicketSubjects(ticketRepo.stream().filter(t -> t.getAssigneeId() == user.getId())
 				.map(t -> t.getSubject()).toArray(String[]::new));
-		user.setSubmittedTicketSubjects(ticketRepo.stream().filter(t -> t.getSubmitterId().equals(user.getId()))
+		user.setSubmittedTicketSubjects(ticketRepo.stream().filter(t -> t.getSubmitterId() == user.getId())
 				.map(t -> t.getSubject()).toArray(String[]::new));
 		user.setOrganizationName(
 				orgRepo.stream().filter(o -> o.getId() == user.getOrganizationId()).findFirst().get().getName());

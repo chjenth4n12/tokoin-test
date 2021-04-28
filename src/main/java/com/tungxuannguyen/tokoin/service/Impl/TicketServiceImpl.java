@@ -23,9 +23,9 @@ public class TicketServiceImpl implements TicketService {
 			String id) {
 		TicketResponse ticketResponse = ticketRepo.stream().filter(ticket -> ticket.getId().equals(id))
 				.map(ticket -> new TicketResponse(ticket)).findFirst().orElseThrow(() -> new NoSuchElementException());
-		ticketResponse.setOrganizationName(orgRepo.stream().filter(o -> o.getId().equals(ticketResponse.getOrganizationId()))
+		ticketResponse.setOrganizationName(orgRepo.stream().filter(o -> o.getId() == ticketResponse.getOrganizationId())
 				.findFirst().get().getName());
-		ticketResponse.setSubmitterName(userRepo.stream().filter(u -> u.getId().equals(ticketResponse.getSubmitterId()))
+		ticketResponse.setSubmitterName(userRepo.stream().filter(u -> u.getId() == ticketResponse.getSubmitterId())
 				.findFirst().get().getName());
 		ticketResponse.setAssigneeName(
 				userRepo.stream().filter(u -> u.getId() == ticketResponse.getAssigneeId()).findFirst().get().getName());

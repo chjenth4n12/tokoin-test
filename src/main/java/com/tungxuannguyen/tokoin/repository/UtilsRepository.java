@@ -2,6 +2,7 @@ package com.tungxuannguyen.tokoin.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tungxuannguyen.tokoin.constant.Constant;
 import com.tungxuannguyen.tokoin.model.Organization;
 import com.tungxuannguyen.tokoin.model.Ticket;
 import com.tungxuannguyen.tokoin.model.User;
@@ -13,53 +14,72 @@ import java.util.List;
 
 @Repository
 public class UtilsRepository {
+	
+	// read any file
+	public <T> List<T> readJson(String path, Class<T> type) {
+		List<T> result = null;
+		ObjectMapper mapper = new ObjectMapper();
+		TypeReference<List<T>> typeReference = new TypeReference<List<T>>() {
+		};
+		InputStream inputStream = TypeReference.class.getResourceAsStream(path);
+		try {
+			result = mapper.readValue(inputStream, typeReference);
+			inputStream.close();
+		} catch (IOException e) {
+			printError(type.getName(), e);
+		}
+		return result;
+	}
 
-    private static final String jsonPathUser = "/json/users.json";
-    private static final String jsonPathOrganization = "/json/organizations.json";
-    private static final String jsonPathTicket = "/json/tickets.json";
-
+	// get data user from file users.json
     public List<User> readJsonUserFile() {
         List<User> result = null;
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<User>> typeReference = new TypeReference<List<User>>() {
         };
-        InputStream inputStream = TypeReference.class.getResourceAsStream(jsonPathUser);
+        InputStream inputStream = TypeReference.class.getResourceAsStream(Constant.JSON_PATH_USER);
         try {
             result = mapper.readValue(inputStream, typeReference);
             inputStream.close();
         } catch (IOException e) {
-            System.out.println("Unable to read users: " + e.getMessage());
+        	printError("users", e);
         }
         return result;
     }
 
+    // get data Organization from file organizations.json
     public List<Organization> readJsonOrganizationFile() {
         List<Organization> result = null;
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<Organization>> typeReference = new TypeReference<List<Organization>>() {
         };
-        InputStream inputStream = TypeReference.class.getResourceAsStream(jsonPathOrganization);
+        InputStream inputStream = TypeReference.class.getResourceAsStream(Constant.JSON_PATH_ORGANIZATION);
         try {
             result = mapper.readValue(inputStream, typeReference);
             inputStream.close();
         } catch (IOException e) {
-            System.out.println("Unable to read organizations: " + e.getMessage());
+        	printError("organizations", e);
         }
         return result;
     }
 
+    // get data Ticket from file tickets.json
     public List<Ticket> readJsonTicketFile() {
         List<Ticket> result = null;
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<Ticket>> typeReference = new TypeReference<List<Ticket>>() {
         };
-        InputStream inputStream = TypeReference.class.getResourceAsStream(jsonPathTicket);
+        InputStream inputStream = TypeReference.class.getResourceAsStream(Constant.JSON_PATH_TICKET);
         try {
             result = mapper.readValue(inputStream, typeReference);
             inputStream.close();
         } catch (IOException e) {
-            System.out.println("Unable to read tickets: " + e.getMessage());
+            printError("tickets", e);
         }
         return result;
+    }
+    
+    private void printError (String nameFileErr, IOException e) {
+    	System.out.println("Unable to read " + nameFileErr + ": " + e.getMessage());
     }
 }
